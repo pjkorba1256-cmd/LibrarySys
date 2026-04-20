@@ -1,10 +1,16 @@
 // ============================================================
 //  main.cpp — Composition Root
-//  This is the ONLY file that chooses concrete implementations.
-//  All other code depends on interfaces.
 // ============================================================
 #include <iostream>
-#include <direct.h>    // _mkdir — Windows/MinGW alternative to std::filesystem
+#include <cstdlib>   // getenv
+
+#ifdef _WIN32
+  #include <direct.h>
+  #define MAKE_DIR(p) _mkdir(p)
+#else
+  #include <sys/stat.h>
+  #define MAKE_DIR(p) mkdir(p, 0777)
+#endif
 
 #include "FileBookRepository.h"
 #include "FileMemberRepository.h"
@@ -14,10 +20,10 @@
 #include "WebServer.h"
 
 int main() {
-    // ── Ensure data directory exists (MinGW-compatible) ────────
-    _mkdir("data");
+    // ── Ensure data directory exists (cross-platform) ─────────
+    MAKE_DIR("data");
 
-    // ── Wire up repositories (swap here for SQLite — nothing else changes) ──
+    // ── Wire up repositories ──────────────────────────────────
     FileBookRepository        bookRepo("data/books.json");
     FileMemberRepository      memberRepo("data/members.json");
     FileTransactionRepository txRepo("data/transactions.json");
@@ -25,13 +31,18 @@ int main() {
     // ── Inject repositories into service layer ────────────────
     LibraryService libraryService(bookRepo, memberRepo, txRepo);
 
-    // ── SearchService: reads live book list via lambda ─────────
+    // ── SearchService ─────────────────────────────────────────
     SearchService searchService([&libraryService]() {
         return libraryService.getAllBooks();
     });
 
-    // ── Start REST server (serves frontend + API on :8080) ────
-    startServer(libraryService, searchService, 8080);
+    // ── Port: read from $PORT env var (Render sets this) ─────
+    int port = 8080;
+    const char* envPort = std::getenv("PORT");
+    if (envPort) port = std::atoi(envPort);
+
+    // ── Start REST server ────────────────────────────────────
+    startServer(libraryService, searchService, port);
 
     return 0;
 }

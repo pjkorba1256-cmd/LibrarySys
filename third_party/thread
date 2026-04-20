@@ -1,3 +1,6 @@
+// Windows-only stub for MinGW GCC 6.3.0 which lacks <thread> support.
+// On Linux (Docker/Render), the real <thread> from GCC is used instead.
+#ifdef _WIN32
 #pragma once
 namespace std {
     class thread {
@@ -21,3 +24,4 @@ namespace std {
         void sleep_for(const std::chrono::duration<Rep, Period>& ) {}
     }
 }
+#endif

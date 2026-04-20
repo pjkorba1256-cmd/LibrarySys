@@ -1,5 +1,11 @@
-// ── Shared API helpers ────────────────────────────────────────
-const API = '';
+// ── API base URL ─────────────────────────────────────────────
+// When hosted on Vercel (frontend-only), point API calls to the
+// Render-deployed C++ backend. Locally, use the same origin.
+const RENDER_BACKEND = 'https://librarysys.onrender.com'; // ← update after deploying to Render
+const API = (window.location.hostname.includes('vercel.app') || window.location.hostname.includes('vercel.com'))
+  ? RENDER_BACKEND
+  : '';
+
 
 async function apiFetch(path, options = {}) {
   const res = await fetch(API + path, {
