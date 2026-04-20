@@ -23,7 +23,6 @@
                 "${workspaceFolder}/src/domain/FineCalculator.cpp",
                 "${workspaceFolder}/src/services/LibraryService.cpp",
                 "${workspaceFolder}/src/services/SearchService.cpp",
-                "${workspaceFolder}/src/services/MemberService.cpp",
                 "${workspaceFolder}/src/persistence/FileBookRepository.cpp",
                 "${workspaceFolder}/src/persistence/FileMemberRepository.cpp",
                 "${workspaceFolder}/src/persistence/FileTransactionRepository.cpp",
@@ -33,18 +32,15 @@
                 "${workspaceFolder}/src/web/routes/TransactionRoutes.cpp",
                 "${workspaceFolder}/src/main.cpp",
                 "-o",
-                "${workspaceFolder}/LibrarySystem.exe",
-                "-lws2_32",
-                "-lmthreds"
+                "${workspaceFolder}/build/bin/LibrarySystem.exe",
+                "-lws2_32"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "detail": "Compiles the entire Library System project."
+            "problemMatcher": ["$gcc"],
+            "detail": "Compiles the entire Library System project using MinGW GCC."
         }
     ]
 }
