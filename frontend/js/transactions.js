@@ -76,14 +76,9 @@ async function quickReturn(txId) {
 }
 
 async function loadTransactions() {
-  try {
-    allTxs = await apiFetch('/api/transactions');
-    applyFilter();
-    document.getElementById('api-status').innerHTML = '<span class="status-dot"></span><span class="api-text">API Connected</span>';
-  } catch {
-    document.getElementById('api-status').innerHTML = '<span style="color:var(--danger)">⚠ API Offline</span>';
-    document.getElementById('transactions-container').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load transactions. Is the C++ server running?</p></div>';
-  }
+  await detectMode();
+  allTxs = await apiFetch('/api/transactions');
+  applyFilter();
 }
 
 setFilter('all');

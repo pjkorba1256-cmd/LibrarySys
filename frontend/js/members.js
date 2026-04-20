@@ -63,14 +63,9 @@ async function deleteMember(id) {
 }
 
 async function loadMembers() {
-  try {
-    allMembers = await apiFetch('/api/members');
-    renderMembers(allMembers);
-    document.getElementById('api-status').innerHTML = '<span class="status-dot"></span><span class="api-text">API Connected</span>';
-  } catch {
-    document.getElementById('api-status').innerHTML = '<span style="color:var(--danger)">⚠ API Offline</span>';
-    document.getElementById('members-container').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load members. Is the C++ server running?</p></div>';
-  }
+  await detectMode();
+  allMembers = await apiFetch('/api/members');
+  renderMembers(allMembers);
 }
 
 loadMembers();

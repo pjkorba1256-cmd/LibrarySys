@@ -37,35 +37,31 @@ async function handleReturn(e) {
 }
 
 async function loadActiveBorrows() {
-  try {
-    const txs = await apiFetch('/api/transactions?active=true');
-    const el  = document.getElementById('active-borrows-list');
-    document.getElementById('api-status').innerHTML = '<span class="status-dot"></span><span class="api-text">API Connected</span>';
-    if (!Array.isArray(txs) || txs.length === 0) {
-      el.innerHTML = '<div class="empty-state"><p>No active borrows right now.</p></div>';
-      return;
-    }
-    el.innerHTML = `
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Tx #</th><th>Book ID</th><th>Member ID</th><th>Due Date</th><th>Status</th><th></th></tr></thead>
-          <tbody>${txs.map(tx => `
-            <tr>
-              <td style="color:var(--text-muted)">${tx.id}</td>
-              <td>${tx.bookId}</td>
-              <td>${tx.memberId}</td>
-              <td style="color:${tx.isOverdue ? 'var(--danger)' : 'inherit'}">${formatDate(tx.dueDate)}</td>
-              <td><span class="badge ${tx.isOverdue ? 'badge-red' : 'badge-green'}">${tx.isOverdue ? 'Overdue' : 'Active'}</span></td>
-              <td>
-                <button class="btn btn-sm" onclick="prefillReturn(${tx.id})">Return</button>
-              </td>
-            </tr>`).join('')}
-          </tbody>
-        </table>
-      </div>`;
-  } catch {
-    document.getElementById('api-status').innerHTML = '<span style="color:var(--danger)">⚠ API Offline</span>';
+  await detectMode();
+  const txs = await apiFetch('/api/transactions?active=true');
+  const el  = document.getElementById('active-borrows-list');
+  if (!Array.isArray(txs) || txs.length === 0) {
+    el.innerHTML = '<div class="empty-state"><p>No active borrows right now.</p></div>';
+    return;
   }
+  el.innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tx #</th><th>Book ID</th><th>Member ID</th><th>Due Date</th><th>Status</th><th></th></tr></thead>
+        <tbody>${txs.map(tx => `
+          <tr>
+            <td style="color:var(--text-muted)">${tx.id}</td>
+            <td>${tx.bookId}</td>
+            <td>${tx.memberId}</td>
+            <td style="color:${tx.isOverdue ? 'var(--danger)' : 'inherit'}">${formatDate(tx.dueDate)}</td>
+            <td><span class="badge ${tx.isOverdue ? 'badge-red' : 'badge-green'}">${tx.isOverdue ? 'Overdue' : 'Active'}</span></td>
+            <td>
+              <button class="btn btn-sm" onclick="prefillReturn(${tx.id})">Return</button>
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
 }
 
 function prefillReturn(txId) {

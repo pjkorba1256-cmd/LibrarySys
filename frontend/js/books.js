@@ -66,14 +66,9 @@ async function deleteBook(id) {
 }
 
 async function loadBooks() {
-  try {
-    allBooks = await apiFetch('/api/books');
-    renderBooks(allBooks);
-    document.getElementById('api-status').innerHTML = '<span class="status-dot"></span><span class="api-text">API Connected</span>';
-  } catch {
-    document.getElementById('api-status').innerHTML = '<span style="color:var(--danger)">⚠ API Offline</span>';
-    document.getElementById('books-container').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>Could not load books. Is the C++ server running?</p></div>';
-  }
+  await detectMode();
+  allBooks = await apiFetch('/api/books');
+  renderBooks(allBooks);
 }
 
 // Handle search query from URL (from dashboard)
