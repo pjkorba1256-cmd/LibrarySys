@@ -3,139 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LibrarySys — Library Management System</title>
-  <meta name="description" content="Modern C++ powered library management system." />
+  <title>Dashboard — LibrarySys</title>
+  <meta name="description" content="Library Management System Dashboard" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="logo-icon">📚</div>
-      <div>
-        <div class="logo-name">LibrarySys</div>
-        <div class="logo-sub">Management System</div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text">
+      <div class="logo-name">LibrarySys</div>
+      <div class="logo-sub">Management System</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="nav-link" id="nav-dashboard" href="index.html"><span class="nav-icon">🏠</span><span class="nav-label">Dashboard</span></a>
+    <a class="nav-link" id="nav-books"     href="books.html"><span class="nav-icon">📖</span><span class="nav-label">Books</span></a>
+    <a class="nav-link" id="nav-members"   href="members.html"><span class="nav-icon">👥</span><span class="nav-label">Members</span></a>
+    <a class="nav-link" id="nav-transactions" href="transactions.html"><span class="nav-icon">🔄</span><span class="nav-label">Transactions</span></a>
+    <a class="nav-link" id="nav-borrow"    href="borrow.html"><span class="nav-icon">📤</span><span class="nav-label">Borrow / Return</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="api-status" id="api-status">
+      <span class="status-dot"></span>
+      <span class="api-text">Connecting...</span>
+    </div>
+  </div>
+</aside>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- Topbar -->
+<header class="topbar" id="topbar">
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <h1 class="page-title">Dashboard</h1>
+  <div class="search-bar">
+    <span>🔍</span>
+    <input type="text" placeholder="Search books..." id="global-search" oninput="handleSearch(this.value)" />
+  </div>
+</header>
+
+<!-- Main -->
+<main class="main">
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <h2>Overview</h2>
+      <p>Welcome back — here's what's happening in your library.</p>
+    </div>
+    <a href="books.html" class="btn btn-primary">+ Add Book</a>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card" style="--accent:#6366f1">
+      <div class="stat-icon-box">📚</div>
+      <div class="stat-info">
+        <div class="stat-value" id="stat-books">—</div>
+        <div class="stat-label">Total Books</div>
       </div>
     </div>
-    <nav class="sidebar-nav">
-      <button class="nav-btn active" id="nav-dashboard" onclick="showPage('dashboard')">🏠 Dashboard</button>
-      <button class="nav-btn" id="nav-books" onclick="showPage('books')">📖 Books</button>
-      <button class="nav-btn" id="nav-members" onclick="showPage('members')">👥 Members</button>
-      <button class="nav-btn" id="nav-transactions" onclick="showPage('transactions')">🔄 Transactions</button>
-      <button class="nav-btn" id="nav-borrow" onclick="showPage('borrow')">📤 Borrow / Return</button>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="api-status" id="api-status"><span class="status-dot"></span> Connecting...</div>
+    <div class="stat-card" style="--accent:#10b981">
+      <div class="stat-icon-box">✅</div>
+      <div class="stat-info">
+        <div class="stat-value" id="stat-available">—</div>
+        <div class="stat-label">Available</div>
+      </div>
     </div>
-  </aside>
-
-  <!-- Mobile sidebar overlay -->
-  <div class="sidebar-overlay hidden" id="sidebar-overlay" onclick="closeSidebar()"></div>
-
-  <main class="main">
-    <header class="topbar">
-      <button class="hamburger" id="hamburger-btn" onclick="toggleSidebar()" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-      <h1 class="page-title" id="page-title">Dashboard</h1>
-      <div class="search-bar">
-        <span>🔍</span>
-        <input type="text" id="global-search" placeholder="Search books..." oninput="handleGlobalSearch(this.value)" />
+    <div class="stat-card" style="--accent:#f59e0b">
+      <div class="stat-icon-box">👥</div>
+      <div class="stat-info">
+        <div class="stat-value" id="stat-members">—</div>
+        <div class="stat-label">Members</div>
       </div>
-    </header>
-
-    <!-- Dashboard -->
-    <section class="page active" id="page-dashboard">
-      <div class="stats-grid">
-        <div class="stat-card" style="--accent:#6366f1"><div class="stat-icon">📚</div><div class="stat-value" id="stat-books">—</div><div class="stat-label">Total Books</div></div>
-        <div class="stat-card" style="--accent:#10b981"><div class="stat-icon">✅</div><div class="stat-value" id="stat-available">—</div><div class="stat-label">Available</div></div>
-        <div class="stat-card" style="--accent:#f59e0b"><div class="stat-icon">👥</div><div class="stat-value" id="stat-members">—</div><div class="stat-label">Members</div></div>
-        <div class="stat-card" style="--accent:#ef4444"><div class="stat-icon">🔄</div><div class="stat-value" id="stat-active-borrows">—</div><div class="stat-label">Active Borrows</div></div>
+    </div>
+    <div class="stat-card" style="--accent:#ef4444">
+      <div class="stat-icon-box">🔄</div>
+      <div class="stat-info">
+        <div class="stat-value" id="stat-borrows">—</div>
+        <div class="stat-label">Active Borrows</div>
       </div>
-      <div class="dashboard-grid">
-        <div class="card"><div class="card-header"><h2 class="card-title">Recent Books</h2><button class="btn btn-sm" onclick="showPage('books')">View All →</button></div><div id="recent-books-list" class="item-list"></div></div>
-        <div class="card"><div class="card-header"><h2 class="card-title">Active Borrows</h2><button class="btn btn-sm" onclick="showPage('transactions')">View All →</button></div><div id="active-borrows-list" class="item-list"></div></div>
-      </div>
-    </section>
-
-    <!-- Books -->
-    <section class="page" id="page-books">
-      <div class="page-actions"><button class="btn btn-primary" onclick="openModal('add-book-modal')">+ Add Book</button></div>
-      <div class="card"><div id="books-table-container"></div></div>
-    </section>
-
-    <!-- Members -->
-    <section class="page" id="page-members">
-      <div class="page-actions"><button class="btn btn-primary" onclick="openModal('add-member-modal')">+ Add Member</button></div>
-      <div class="card"><div id="members-table-container"></div></div>
-    </section>
-
-    <!-- Transactions -->
-    <section class="page" id="page-transactions">
-      <div class="card"><div id="transactions-table-container"></div></div>
-    </section>
-
-    <!-- Borrow / Return -->
-    <section class="page" id="page-borrow">
-      <div class="borrow-grid">
-        <div class="card">
-          <div class="card-header"><h2 class="card-title">📤 Borrow a Book</h2></div>
-          <form class="form" onsubmit="handleBorrow(event)">
-            <label class="form-label">Member ID</label>
-            <input type="number" id="borrow-member-id" class="form-input" placeholder="e.g. 1" required />
-            <label class="form-label">Book ID</label>
-            <input type="number" id="borrow-book-id" class="form-input" placeholder="e.g. 3" required />
-            <button type="submit" class="btn btn-primary btn-full">Issue Book</button>
-          </form>
-          <div id="borrow-result" class="result-box hidden"></div>
-        </div>
-        <div class="card">
-          <div class="card-header"><h2 class="card-title">📥 Return a Book</h2></div>
-          <form class="form" onsubmit="handleReturn(event)">
-            <label class="form-label">Transaction ID</label>
-            <input type="number" id="return-tx-id" class="form-input" placeholder="e.g. 1" required />
-            <button type="submit" class="btn btn-success btn-full">Return Book</button>
-          </form>
-          <div id="return-result" class="result-box hidden"></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Modals -->
-  <div class="modal-overlay hidden" id="add-book-modal">
-    <div class="modal">
-      <div class="modal-header"><h3>Add New Book</h3><button class="modal-close" onclick="closeModal('add-book-modal')">✕</button></div>
-      <form class="form" onsubmit="handleAddBook(event)">
-        <label class="form-label">Title *</label><input type="text" id="book-title" class="form-input" required />
-        <label class="form-label">Author *</label><input type="text" id="book-author" class="form-input" required />
-        <label class="form-label">ISBN</label><input type="text" id="book-isbn" class="form-input" placeholder="978-..." />
-        <label class="form-label">Category</label><input type="text" id="book-category" class="form-input" placeholder="e.g. Fiction" />
-        <label class="form-label">Copies</label><input type="number" id="book-copies" class="form-input" value="1" min="1" />
-        <div class="modal-footer">
-          <button type="button" class="btn" onclick="closeModal('add-book-modal')">Cancel</button>
-          <button type="submit" class="btn btn-primary">Add Book</button>
-        </div>
-      </form>
     </div>
   </div>
 
-  <div class="modal-overlay hidden" id="add-member-modal">
-    <div class="modal">
-      <div class="modal-header"><h3>Register New Member</h3><button class="modal-close" onclick="closeModal('add-member-modal')">✕</button></div>
-      <form class="form" onsubmit="handleAddMember(event)">
-        <label class="form-label">Full Name *</label><input type="text" id="member-name" class="form-input" required />
-        <label class="form-label">Email *</label><input type="email" id="member-email" class="form-input" required />
-        <div class="modal-footer">
-          <button type="button" class="btn" onclick="closeModal('add-member-modal')">Cancel</button>
-          <button type="submit" class="btn btn-primary">Register</button>
-        </div>
-      </form>
+  <!-- Recent activity -->
+  <div class="dashboard-grid">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Recent Books</span>
+        <a href="books.html" class="btn btn-sm">View All →</a>
+      </div>
+      <div class="item-list" id="recent-books"></div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Active Borrows</span>
+        <a href="transactions.html" class="btn btn-sm">View All →</a>
+      </div>
+      <div class="item-list" id="active-borrows"></div>
     </div>
   </div>
+</main>
 
-  <div class="toast hidden" id="toast"></div>
-  <script src="js/app.js"></script>
+<div class="toast hidden" id="toast"></div>
+<script src="js/shared.js"></script>
+<script src="js/dashboard.js"></script>
 </body>
 </html>

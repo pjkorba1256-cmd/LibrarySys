@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Borrow / Return — LibrarySys</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text"><div class="logo-name">LibrarySys</div><div class="logo-sub">Management System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="nav-link" id="nav-dashboard" href="index.html"><span class="nav-icon">🏠</span><span class="nav-label">Dashboard</span></a>
+    <a class="nav-link" id="nav-books"     href="books.html"><span class="nav-icon">📖</span><span class="nav-label">Books</span></a>
+    <a class="nav-link" id="nav-members"   href="members.html"><span class="nav-icon">👥</span><span class="nav-label">Members</span></a>
+    <a class="nav-link" id="nav-transactions" href="transactions.html"><span class="nav-icon">🔄</span><span class="nav-label">Transactions</span></a>
+    <a class="nav-link" id="nav-borrow"    href="borrow.html"><span class="nav-icon">📤</span><span class="nav-label">Borrow / Return</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="api-status" id="api-status"><span class="status-dot"></span><span class="api-text">Connecting...</span></div>
+  </div>
+</aside>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<header class="topbar" id="topbar">
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <h1 class="page-title">Borrow / Return</h1>
+</header>
+
+<main class="main">
+  <div class="page-header">
+    <div class="page-header-left">
+      <h2>Issue & Return Books</h2>
+      <p>Borrow books for members or process a book return.</p>
+    </div>
+  </div>
+
+  <div class="borrow-grid">
+    <!-- Borrow card -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">📤 Borrow a Book</span>
+      </div>
+      <form class="form" onsubmit="handleBorrow(event)">
+        <label class="form-label">Member ID</label>
+        <input type="number" id="borrow-member-id" class="form-input" placeholder="e.g. 1" required />
+        <label class="form-label">Book ID</label>
+        <input type="number" id="borrow-book-id" class="form-input" placeholder="e.g. 3" required />
+        <button type="submit" class="btn btn-primary btn-full">Issue Book</button>
+      </form>
+      <div id="borrow-result" class="result-box hidden" style="margin-top:14px"></div>
+    </div>
+
+    <!-- Return card -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">📥 Return a Book</span>
+      </div>
+      <form class="form" onsubmit="handleReturn(event)">
+        <label class="form-label">Transaction ID</label>
+        <input type="number" id="return-tx-id" class="form-input" placeholder="e.g. 1" required />
+        <button type="submit" class="btn btn-success btn-full">Return Book</button>
+      </form>
+      <div id="return-result" class="result-box hidden" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <!-- Active borrows quick view -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Currently Borrowed</span>
+      <a href="transactions.html" class="btn btn-sm">Full History →</a>
+    </div>
+    <div id="active-borrows-list"></div>
+  </div>
+</main>
+
+<div class="toast hidden" id="toast"></div>
+<script src="js/shared.js"></script>
+<script src="js/borrow.js"></script>
+</body>
+</html>

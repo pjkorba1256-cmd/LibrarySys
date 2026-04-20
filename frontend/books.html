@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Books — LibrarySys</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text"><div class="logo-name">LibrarySys</div><div class="logo-sub">Management System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="nav-link" id="nav-dashboard" href="index.html"><span class="nav-icon">🏠</span><span class="nav-label">Dashboard</span></a>
+    <a class="nav-link" id="nav-books"     href="books.html"><span class="nav-icon">📖</span><span class="nav-label">Books</span></a>
+    <a class="nav-link" id="nav-members"   href="members.html"><span class="nav-icon">👥</span><span class="nav-label">Members</span></a>
+    <a class="nav-link" id="nav-transactions" href="transactions.html"><span class="nav-icon">🔄</span><span class="nav-label">Transactions</span></a>
+    <a class="nav-link" id="nav-borrow"    href="borrow.html"><span class="nav-icon">📤</span><span class="nav-label">Borrow / Return</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="api-status" id="api-status"><span class="status-dot"></span><span class="api-text">Connecting...</span></div>
+  </div>
+</aside>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<header class="topbar" id="topbar">
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <h1 class="page-title">Books</h1>
+  <div class="search-bar">
+    <span>🔍</span>
+    <input type="text" placeholder="Search books..." id="search-input" oninput="handleSearch(this.value)" />
+  </div>
+</header>
+
+<main class="main">
+  <div class="page-header">
+    <div class="page-header-left">
+      <h2>Book Catalogue</h2>
+      <p>Manage your library's entire book collection.</p>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('add-book-modal')">+ Add Book</button>
+  </div>
+
+  <div class="card">
+    <div id="books-container"></div>
+  </div>
+</main>
+
+<!-- Add Book Modal -->
+<div class="modal-overlay hidden" id="add-book-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Add New Book</h3>
+      <button class="modal-close" onclick="closeModal('add-book-modal')">✕</button>
+    </div>
+    <form class="form" onsubmit="handleAddBook(event)">
+      <label class="form-label">Title *</label>
+      <input type="text" id="book-title" class="form-input" placeholder="e.g. The Great Gatsby" required />
+      <label class="form-label">Author *</label>
+      <input type="text" id="book-author" class="form-input" placeholder="e.g. F. Scott Fitzgerald" required />
+      <label class="form-label">ISBN</label>
+      <input type="text" id="book-isbn" class="form-input" placeholder="978-..." />
+      <label class="form-label">Category</label>
+      <input type="text" id="book-category" class="form-input" placeholder="e.g. Fiction" />
+      <label class="form-label">Number of Copies</label>
+      <input type="number" id="book-copies" class="form-input" value="1" min="1" />
+      <div class="modal-footer">
+        <button type="button" class="btn" onclick="closeModal('add-book-modal')">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add Book</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast hidden" id="toast"></div>
+<script src="js/shared.js"></script>
+<script src="js/books.js"></script>
+</body>
+</html>

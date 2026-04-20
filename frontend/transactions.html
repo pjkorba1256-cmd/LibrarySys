@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transactions — LibrarySys</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-icon">📚</div>
+    <div class="logo-text"><div class="logo-name">LibrarySys</div><div class="logo-sub">Management System</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="nav-link" id="nav-dashboard" href="index.html"><span class="nav-icon">🏠</span><span class="nav-label">Dashboard</span></a>
+    <a class="nav-link" id="nav-books"     href="books.html"><span class="nav-icon">📖</span><span class="nav-label">Books</span></a>
+    <a class="nav-link" id="nav-members"   href="members.html"><span class="nav-icon">👥</span><span class="nav-label">Members</span></a>
+    <a class="nav-link" id="nav-transactions" href="transactions.html"><span class="nav-icon">🔄</span><span class="nav-label">Transactions</span></a>
+    <a class="nav-link" id="nav-borrow"    href="borrow.html"><span class="nav-icon">📤</span><span class="nav-label">Borrow / Return</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="api-status" id="api-status"><span class="status-dot"></span><span class="api-text">Connecting...</span></div>
+  </div>
+</aside>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<header class="topbar" id="topbar">
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <h1 class="page-title">Transactions</h1>
+  <div class="search-bar">
+    <span>🔍</span>
+    <input type="text" placeholder="Filter by status..." id="filter-input" oninput="handleFilter(this.value)" />
+  </div>
+</header>
+
+<main class="main">
+  <div class="page-header">
+    <div class="page-header-left">
+      <h2>Transaction History</h2>
+      <p>Full record of all borrowing and return activity.</p>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" id="filter-all"    onclick="setFilter('all')"    >All</button>
+      <button class="btn" id="filter-active" onclick="setFilter('active')" >Active</button>
+      <button class="btn" id="filter-overdue" onclick="setFilter('overdue')">Overdue</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div id="transactions-container"></div>
+  </div>
+</main>
+
+<div class="toast hidden" id="toast"></div>
+<script src="js/shared.js"></script>
+<script src="js/transactions.js"></script>
+</body>
+</html>
