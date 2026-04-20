@@ -30,8 +30,14 @@
     </div>
   </aside>
 
+  <!-- Mobile sidebar overlay -->
+  <div class="sidebar-overlay hidden" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
   <main class="main">
     <header class="topbar">
+      <button class="hamburger" id="hamburger-btn" onclick="toggleSidebar()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
       <h1 class="page-title" id="page-title">Dashboard</h1>
       <div class="search-bar">
         <span>🔍</span>

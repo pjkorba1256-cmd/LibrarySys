@@ -2,6 +2,24 @@
 const API = '';
 
 // ════════════════════════════════════════════════════════════
+//  Sidebar (mobile toggle)
+// ════════════════════════════════════════════════════════════
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('visible');
+  overlay.classList.toggle('hidden');
+}
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  sidebar.classList.remove('open');
+  overlay.classList.remove('visible');
+  overlay.classList.add('hidden');
+}
+
+// ════════════════════════════════════════════════════════════
 //  Navigation
 // ════════════════════════════════════════════════════════════
 function showPage(name) {
@@ -14,6 +32,8 @@ function showPage(name) {
   if (name === 'books')        loadBooks();
   if (name === 'members')      loadMembers();
   if (name === 'transactions') loadTransactions();
+  // Auto-close sidebar on mobile after navigation
+  if (window.innerWidth <= 640) closeSidebar();
 }
 
 // ════════════════════════════════════════════════════════════
