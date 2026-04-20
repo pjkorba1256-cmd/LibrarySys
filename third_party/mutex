@@ -1,0 +1,7 @@
+#pragma once
+namespace std {
+    class mutex { public: void lock() {} void unlock() {} };
+    class recursive_mutex { public: void lock() {} void unlock() {} };
+    template<typename T> class lock_guard { public: lock_guard(T&) {} };
+    template<typename T> class unique_lock { public: unique_lock(T&) {} };
+}

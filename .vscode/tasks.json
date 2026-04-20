@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Library System",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++14",
+                "-O2",
+                "-w",
+                "-D_WIN32_WINNT=0x0600",
+                "-I${workspaceFolder}/src/domain",
+                "-I${workspaceFolder}/src/services",
+                "-I${workspaceFolder}/src/persistence",
+                "-I${workspaceFolder}/src/web",
+                "-I${workspaceFolder}/src/web/routes",
+                "-I${workspaceFolder}/third_party",
+                "${workspaceFolder}/src/domain/User.cpp",
+                "${workspaceFolder}/src/domain/Member.cpp",
+                "${workspaceFolder}/src/domain/Book.cpp",
+                "${workspaceFolder}/src/domain/Transaction.cpp",
+                "${workspaceFolder}/src/domain/FineCalculator.cpp",
+                "${workspaceFolder}/src/services/LibraryService.cpp",
+                "${workspaceFolder}/src/services/SearchService.cpp",
+                "${workspaceFolder}/src/services/MemberService.cpp",
+                "${workspaceFolder}/src/persistence/FileBookRepository.cpp",
+                "${workspaceFolder}/src/persistence/FileMemberRepository.cpp",
+                "${workspaceFolder}/src/persistence/FileTransactionRepository.cpp",
+                "${workspaceFolder}/src/web/WebServer.cpp",
+                "${workspaceFolder}/src/web/routes/BookRoutes.cpp",
+                "${workspaceFolder}/src/web/routes/MemberRoutes.cpp",
+                "${workspaceFolder}/src/web/routes/TransactionRoutes.cpp",
+                "${workspaceFolder}/src/main.cpp",
+                "-o",
+                "${workspaceFolder}/LibrarySystem.exe",
+                "-lws2_32",
+                "-lmthreds"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Compiles the entire Library System project."
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+# Build output
+build/
+*.exe
+*.o
+*.obj
+
+# OS generated files
+.DS_Store
+Thumbs.db

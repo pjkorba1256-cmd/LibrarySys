@@ -1,0 +1,18 @@
+{
+  "C_Cpp.default.compilerPath": "C:/MinGW/bin/g++.exe",
+  "C_Cpp.default.cppStandard": "c++14",
+  "C_Cpp.default.intelliSenseMode": "windows-gcc-x86",
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/src/domain",
+    "${workspaceFolder}/src/services",
+    "${workspaceFolder}/src/persistence",
+    "${workspaceFolder}/src/web",
+    "${workspaceFolder}/src/web/routes",
+    "${workspaceFolder}/third_party"
+  ],
+  "editor.tabSize": 4,
+  "files.associations": {
+    "*.h": "cpp",
+    "*.hpp": "cpp"
+  }
+}

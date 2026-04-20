@@ -1,0 +1,23 @@
+#pragma once
+namespace std {
+    class thread {
+    public:
+        class id {
+        public:
+            bool operator==(const id&) const { return true; }
+            bool operator!=(const id&) const { return false; }
+        };
+        template<typename F, typename... Args>
+        thread(F&& f, Args&&... args) {}
+        void join() {}
+        void detach() {}
+        bool joinable() const { return false; }
+        static unsigned int hardware_concurrency() { return 1; }
+    };
+#include <chrono>
+    namespace this_thread {
+        inline thread::id get_id() { return thread::id(); }
+        template<class Rep, class Period>
+        void sleep_for(const std::chrono::duration<Rep, Period>& ) {}
+    }
+}

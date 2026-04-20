@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "isbn": "978-0132350884",
+    "category": "Software Engineering",
+    "status": "AVAILABLE",
+    "totalCopies": 3,
+    "availableCopies": 3
+  },
+  {
+    "id": 2,
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt",
+    "isbn": "978-0201616224",
+    "category": "Software Engineering",
+    "status": "AVAILABLE",
+    "totalCopies": 2,
+    "availableCopies": 2
+  },
+  {
+    "id": 3,
+    "title": "Design Patterns",
+    "author": "Gang of Four",
+    "isbn": "978-0201633610",
+    "category": "Software Architecture",
+    "status": "AVAILABLE",
+    "totalCopies": 2,
+    "availableCopies": 2
+  },
+  {
+    "id": 4,
+    "title": "Introduction to Algorithms",
+    "author": "Thomas H. Cormen",
+    "isbn": "978-0262033848",
+    "category": "Computer Science",
+    "status": "AVAILABLE",
+    "totalCopies": 4,
+    "availableCopies": 4
+  },
+  {
+    "id": 5,
+    "title": "The C++ Programming Language",
+    "author": "Bjarne Stroustrup",
+    "isbn": "978-0321563842",
+    "category": "Programming",
+    "status": "AVAILABLE",
+    "totalCopies": 3,
+    "availableCopies": 3
+  }
+]

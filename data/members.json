@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Johnson",
+    "email": "alice@library.com",
+    "finesOwed": 0.0,
+    "activeBorrows": []
+  },
+  {
+    "id": 2,
+    "name": "Bob Smith",
+    "email": "bob@library.com",
+    "finesOwed": 0.0,
+    "activeBorrows": []
+  },
+  {
+    "id": 3,
+    "name": "Carol Davis",
+    "email": "carol@library.com",
+    "finesOwed": 15.0,
+    "activeBorrows": []
+  }
+]
